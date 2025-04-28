@@ -98,6 +98,7 @@ python lerobot/scripts/control_robot.py record \
 ```
 """
 
+import screeninfo
 import argparse
 import concurrent.futures
 import json
@@ -426,6 +427,34 @@ def record(
         #         print("cv2.imshow")
         #         cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
         #     cv2.waitKey(1)
+        if not is_headless():
+                    image_keys = [key for key in observation if "image" in key]
+                    max_windows = 3  # 最多显示3个窗口
+                    window_width = 400
+                    window_height = 300
+                    
+                    # 获取屏幕尺寸
+                    screen = screeninfo.get_monitors()[0]
+                    screen_width, screen_height = screen.width, screen.height
+                    
+                    start_x = 50
+                    start_y = 50
+                    
+                    for i, key in enumerate(image_keys[:max_windows]):
+                        window_name = key
+                        img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
+                        img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
+                        
+                        x_pos = start_x + i * (window_width + 10)
+                        if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
+                            start_y += window_height + 10
+                            x_pos = start_x
+                        
+                        cv2.imshow(window_name, img)
+                        cv2.moveWindow(window_name, x_pos, start_y)
+                    
+                    cv2.waitKey(1)
+
 
         dt_s = time.perf_counter() - start_loop_t
         busy_wait(1 / fps - dt_s)
@@ -476,6 +505,35 @@ def record(
                 #     for key in image_keys:
                 #         cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
                 #     cv2.waitKey(1)
+
+                if not is_headless():
+                    image_keys = [key for key in observation if "image" in key]
+                    max_windows = 3  # 最多显示3个窗口
+                    window_width = 500
+                    window_height = 400
+                    
+                    # 获取屏幕尺寸
+                    screen = screeninfo.get_monitors()[0]
+                    screen_width, screen_height = screen.width, screen.height
+                    
+                    start_x = 50
+                    start_y = 50
+                    
+                    for i, key in enumerate(image_keys[:max_windows]):
+                        window_name = key
+                        img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
+                        img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
+                        
+                        x_pos = start_x + i * (window_width + 10)
+                        if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
+                            start_y += window_height + 10
+                            x_pos = start_x
+                        
+                        cv2.imshow(window_name, img)
+                        cv2.moveWindow(window_name, x_pos, start_y)
+                    
+                    cv2.waitKey(1)
+
 
                 for key in not_image_keys:
                     if key not in ep_dict:
@@ -608,8 +666,8 @@ def record(
             if is_last_episode:
                 logging.info("Done recording")
                 say("Done recording", blocking=True)
-                # if not is_headless():
-                #     listener.stop()
+                if not is_headless():
+                    listener.stop()
 
                 logging.info("Waiting for threads writing the images on disk to terminate...")
                 for _ in tqdm.tqdm(
@@ -619,8 +677,8 @@ def record(
                 break
 
     robot.disconnect()
-    # if not is_headless():
-    #     cv2.destroyAllWindows()
+    if not is_headless():
+        cv2.destroyAllWindows()
 
     num_episodes = episode_index
 
@@ -684,6 +742,7 @@ def record(
     save_meta_data(info, stats, episode_data_index, meta_data_dir)
 
     # if push_to_hub:
+    #     print("----------start push-to-hub---------")
     #     hf_dataset.push_to_hub(repo_id, revision="main")
     #     push_meta_data_to_hub(repo_id, meta_data_dir, revision="main")
     #     push_dataset_card_to_hub(repo_id, revision="main", tags=tags)
@@ -793,7 +852,8 @@ if __name__ == "__main__":
     base_parser.add_argument(
         "--robot-path",
         type=str,
-        default="lerobot/configs/robot/koch.yaml",
+        # default="lerobot/configs/robot/koch.yaml",
+        default="lerobot/configs/robot/gello_ur5.yaml",
         help="Path to robot yaml file used to instantiate the robot using `make_robot` factory function.",
     )
     base_parser.add_argument(
@@ -829,22 +889,22 @@ if __name__ == "__main__":
     parser_record.add_argument(
         "--warmup-time-s",
         type=int,
-        default=10,
+        default=2,
         help="Number of seconds before starting data collection. It allows the robot devices to warmup and synchronize.",
     )
     parser_record.add_argument(
         "--episode-time-s",
         type=int,
-        default=60,
+        default=200,
         help="Number of seconds for data recording for each episode.",
     )
     parser_record.add_argument(
         "--reset-time-s",
         type=int,
-        default=60,
+        default=20,
         help="Number of seconds for resetting the environment after each episode.",
     )
-    parser_record.add_argument("--num-episodes", type=int, default=50, help="Number of episodes to record.")
+    parser_record.add_argument("--num-episodes", type=int, default=10, help="Number of episodes to record.")
     parser_record.add_argument(
         "--run-compute-stats",
         type=int,

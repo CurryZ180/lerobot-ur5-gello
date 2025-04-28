@@ -43,7 +43,8 @@ class PGIGripper:
             print(res)
             # Wait for the gripper to initialize
             while True:
-                status = self.client.read_holding_registers(0x0200, 1, slave=self.slave)
+                # status = self.client.read_holding_registers(0x0200, 1, slave=self.slave)
+                status = self.client.read_holding_registers(address=0x0200, count=1, slave=self.slave) #TODO
                 # print(status)
                 if status.registers[0] == 1:
                     break

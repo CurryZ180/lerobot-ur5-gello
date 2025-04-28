@@ -22,7 +22,7 @@ from lerobot.common.robot_devices.utils import RobotDeviceAlreadyConnectedError,
 from lerobot.common.utils.utils import capture_timestamp_utc
 
 PROTOCOL_VERSION = 2.0
-BAUDRATE = 3_000_000 #TO_DO 
+BAUDRATE = 3000_000 #TO_DO 
 TIMEOUT_MS = 1000
 
 MAX_ID_RANGE = 252
@@ -98,6 +98,26 @@ X_SERIES_BAUDRATE_TABLE = {
     5: 3_000_000,
     6: 4_000_000,
 }
+
+# X_SERIES_BAUDRATE_TABLE = {
+#     0: 1_000_000, #
+#     1: 2_000_000,
+#     2: 57_600,
+#     3: 1_000_000,
+#     4: 1_000_000,#
+#     5: 9_600,
+#     6: 115_200,
+# }
+
+# X_SERIES_BAUDRATE_TABLE = {
+#     0: 1_000_000, 
+#     1: 1_000_000,
+#     2: 2_000_000,
+#     3: 57_600,
+#     4: 1_000_000,
+#     5: 1000000,
+#     6: 9600,
+# }
 
 CALIBRATION_REQUIRED = ["Goal_Position", "Present_Position"]
 CONVERT_UINT32_TO_INT32_REQUIRED = ["Goal_Position", "Present_Position"]
@@ -653,6 +673,7 @@ class DynamixelMotorsBus:
             # However, some motors can turn a bit more, hence we extend the nominal range to [-270, 270]
             # which is less than a full 360 degree rotation.
             #print("3:",values)
+            print("values: ",values)
             if not np.all((values > -270) & (values < 270)):
                 print("values: ",values)   
                 raise ValueError(

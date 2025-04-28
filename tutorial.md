@@ -39,7 +39,8 @@ python lerobot/scripts/control_robot.py record --robot-path lerobot/configs/robo
 
 ## 4: 可视化数据集
 ```bash
-python lerobot/scripts/visualize_dataset_html.py   --root data   --repo-id cheney/dish
+python lerobot/scripts/    if control_mode == "calibrate":
+visualize_dataset_html.py   --root data   --repo-id cheney/dish
 ```
 
 ## 5: 训练模型
