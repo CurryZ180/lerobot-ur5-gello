@@ -34,23 +34,22 @@ python lerobot/scripts/control_robot.py teleoperate --robot-path lerobot/configs
 
 ## 3: 遥操采集数据
 ```bash
-python lerobot/scripts/control_robot.py record --robot-path lerobot/configs/robot/gello_ur5.yaml --repo-id cheney/dish --num-episodes 50
+python lerobot/scripts/control_robot.py record --robot-path lerobot/configs/robot/gello_ur5.yaml --repo-id zhou/chemical --num-episodes 50
 ```
 
 ## 4: 可视化数据集
 ```bash
-python lerobot/scripts/    if control_mode == "calibrate":
-visualize_dataset_html.py   --root data   --repo-id cheney/dish
+python lerobot/scripts/visualize_dataset_html.py   --root data   --repo-id zhou/chemical
 ```
 
 ## 5: 训练模型
 ```bash
 DATA_DIR=data python lerobot/scripts/train.py \
-  dataset_repo_id={$HF_USER}/ur5_test\
+  dataset_repo_id=zhou/chemical\
   policy=act_ur5_real \
   env=ur5_real \
-  hydra.run.dir=outputs/train/act_ur5_dish \
-  hydra.job.name=act_ur5_dish \
+  hydra.run.dir=outputs/train/act_ur5_chemical \
+  hydra.job.name=act_ur5_chemical \
   device=cuda \
   wandb.enable=true 
 ```
@@ -60,17 +59,17 @@ python lerobot/scripts/control_robot.py record \
   --robot-path lerobot/configs/robot/gello_ur5.yaml \
   --fps 30 \
   --root data\
-  --repo-id cheney/dish \
+  --repo-id zhou/chemical \
   --tags tutorial eval \
   --warmup-time-s 5 \
   --episode-time-s 30 \
   --reset-time-s 30 \
   --num-episodes 10 \
-  -p outputs/train/act_ur5_dish/checkpoints/last/pretrained_model
+  -p outputs/train/act_ur5_chemical/checkpoints/last/pretrained_model
 ```
 ## 7: 自定义评估（有需求可以自己实现）
 ```bash
 python lerobot/scripts/control_robot.py eval \
   --robot-path lerobot/configs/robot/gello_ur5.yaml \
-  -p outputs/train/act_ur5_dish/checkpoints/last/pretrained_model
+  -p outputs/train/act_ur5_chemical/checkpoints/last/pretrained_model
 ```
