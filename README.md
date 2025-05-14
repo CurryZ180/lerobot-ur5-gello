@@ -121,7 +121,7 @@ wandb login
 If you want to use [Gello](https://wuphilipp.github.io/gello_site/) to build your own robot, please refer to this [tutorial](https://github.com/Cheney-36/lerobot/blob/main/tutorial.md)
 
 
-![Image](/image/7finish.png "Optional title")
+![Image](/image/7finish1.png "Optional title")
 
 ## Walkthrough
 
