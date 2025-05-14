@@ -80,7 +80,7 @@
 
 Download our source code:
 ```bash
-git clone https://github.com/Cheney-36/lerobot.git
+https://github.com/CurryZ180/lerobot-ur5-gello.git
 cd lerobot
 ```
 
