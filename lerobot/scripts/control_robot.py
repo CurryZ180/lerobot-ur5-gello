@@ -427,33 +427,34 @@ def record(
         #         print("cv2.imshow")
         #         cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
         #     cv2.waitKey(1)
-        if not is_headless():
-                    image_keys = [key for key in observation if "image" in key]
-                    max_windows = 3  # 最多显示3个窗口
-                    window_width = 400
-                    window_height = 300
+
+        # if not is_headless():
+        #             image_keys = [key for key in observation if "image" in key]
+        #             max_windows = 3  # 最多显示3个窗口
+        #             window_width = 400
+        #             window_height = 300
                     
-                    # 获取屏幕尺寸
-                    screen = screeninfo.get_monitors()[0]
-                    screen_width, screen_height = screen.width, screen.height
+        #             # 获取屏幕尺寸
+        #             screen = screeninfo.get_monitors()[0]
+        #             screen_width, screen_height = screen.width, screen.height
                     
-                    start_x = 50
-                    start_y = 50
+        #             start_x = 50
+        #             start_y = 50
                     
-                    for i, key in enumerate(image_keys[:max_windows]):
-                        window_name = key
-                        img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
-                        img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
+        #             for i, key in enumerate(image_keys[:max_windows]):
+        #                 window_name = key
+        #                 img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
+        #                 img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
                         
-                        x_pos = start_x + i * (window_width + 10)
-                        if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
-                            start_y += window_height + 10
-                            x_pos = start_x
+        #                 x_pos = start_x + i * (window_width + 10)
+        #                 if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
+        #                     start_y += window_height + 10
+        #                     x_pos = start_x
                         
-                        cv2.imshow(window_name, img)
-                        cv2.moveWindow(window_name, x_pos, start_y)
+        #                 cv2.imshow(window_name, img)
+        #                 cv2.moveWindow(window_name, x_pos, start_y)
                     
-                    cv2.waitKey(1)
+        #             cv2.waitKey(1)
 
 
         dt_s = time.perf_counter() - start_loop_t
@@ -506,33 +507,33 @@ def record(
                 #         cv2.imshow(key, cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR))
                 #     cv2.waitKey(1)
 
-                if not is_headless():
-                    image_keys = [key for key in observation if "image" in key]
-                    max_windows = 3  # 最多显示3个窗口
-                    window_width = 500
-                    window_height = 400
+                # if not is_headless():
+                #     image_keys = [key for key in observation if "image" in key]
+                #     max_windows = 3  # 最多显示3个窗口
+                #     window_width = 500
+                #     window_height = 400
                     
-                    # 获取屏幕尺寸
-                    screen = screeninfo.get_monitors()[0]
-                    screen_width, screen_height = screen.width, screen.height
+                #     # 获取屏幕尺寸
+                #     screen = screeninfo.get_monitors()[0]
+                #     screen_width, screen_height = screen.width, screen.height
                     
-                    start_x = 50
-                    start_y = 50
+                #     start_x = 50
+                #     start_y = 50
                     
-                    for i, key in enumerate(image_keys[:max_windows]):
-                        window_name = key
-                        img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
-                        img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
+                #     for i, key in enumerate(image_keys[:max_windows]):
+                #         window_name = key
+                #         img = cv2.cvtColor(observation[key].numpy(), cv2.COLOR_RGB2BGR)
+                #         img = cv2.resize(img, (window_width, window_height))  # 统一尺寸
                         
-                        x_pos = start_x + i * (window_width + 10)
-                        if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
-                            start_y += window_height + 10
-                            x_pos = start_x
+                #         x_pos = start_x + i * (window_width + 10)
+                #         if x_pos + window_width > screen_width:  # 如果超出屏幕，换行
+                #             start_y += window_height + 10
+                #             x_pos = start_x
                         
-                        cv2.imshow(window_name, img)
-                        cv2.moveWindow(window_name, x_pos, start_y)
+                #         cv2.imshow(window_name, img)
+                #         cv2.moveWindow(window_name, x_pos, start_y)
                     
-                    cv2.waitKey(1)
+                #     cv2.waitKey(1)
 
 
                 for key in not_image_keys:

@@ -240,7 +240,7 @@ class gello_ur5Robot:
         for name in self.leader_arms:
             #homing_offset, drive_mode = run_arm_calibration(self.leader_arms[name], name, "follower")
             # homing_offset = np.array([0, -4096, -0, -4096, 0, 0, 414])
-            homing_offset = np.array([-2048, -4096, 5120, -3072, -5120, -3072, 414])#TODO
+            homing_offset = np.array([-2048, -4096, 1024, -3072, -5120, -3072, 414])#TODO
             
             drive_mode = np.array([ 0, 0, 1, 0, 0, 0, 0]) #旋转方向是否应反转（=1）或不应反转（=0）。
             calibration[f"leader_{name}"] = {}

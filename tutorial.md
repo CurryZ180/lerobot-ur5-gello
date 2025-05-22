@@ -73,3 +73,24 @@ python lerobot/scripts/control_robot.py eval \
   --robot-path lerobot/configs/robot/gello_ur5.yaml \
   -p outputs/train/act_ur5_chemical/checkpoints/last/pretrained_model
 ```
+
+
+
+pip install typeguard 4.4.2
+pyav ->av
+
+pip install screeninfo 0.8.1
+
+pip install diffusers==0.32.2
+
+pip install dynamixel-sdk 3.7.31
+
+pip install ur-rtde 1.6.1
+
+pip install pymodbus==3.7.0
+
+pip install pynput 1.8.1
+
+pip install huggingface-hub==0.24.0
+
+pip install  torchvision=0.21.0

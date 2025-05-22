@@ -6,7 +6,7 @@ import numpy as np
 class URRobot():
     """A class representing a UR robot."""
 
-    def __init__(self, robot_ip: str = "192.168.1.105", no_gripper: bool = False):
+    def __init__(self, robot_ip: str = "192.168.20.105", no_gripper: bool = False):
         import rtde_control
         import rtde_receive
 
@@ -21,7 +21,7 @@ class URRobot():
 
             from lerobot.common.robot_devices.robots.pgi_tools import PGIGripper
             self.gripper = PGIGripper()
-            self.gripper.connect("/dev/ttyUSB0", 1, 115200)#TODO
+            self.gripper.connect("/dev/ttyUSB1", 1, 115200)#TODO
             self.gripper.init_gripper()
 
             print("gripper connected")
